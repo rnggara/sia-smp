@@ -109,7 +109,7 @@
 					        					<form action="update_kelas" method="post">
 					        						<span class="input-group-btn">
 						        						<button type="button" name="" class="btn btn-primary" value="edit" data-toggle="modal" data-target=".modal-edit-<?php echo $catMapel->id_mapel?>"><i class="fa fa-pencil"></i> edit</button>
-						        						<a href="mata-pelajaran/delete/<?php echo $catMapel->id_mapel ?>" class="btn btn-danger" name="active"><i class="fa fa-close"></i> Delete</a>
+						        						<a href="mata-pelajaran/delete/<?php echo $catMapel->id_mapel ?>" class="btn btn-danger" name="active"><i class="fa fa-trash"></i> delete</a>
 						        					</span>
 						        				</form>
 					        					<div class="modal fade modal-edit-<?php echo $catMapel->id_mapel?>" tabindex="-1" role="dialog" aria-hidden="true">
@@ -222,7 +222,7 @@
 					        					<form action="update_kelas" method="post">
 					        						<span class="input-group-btn">
 						        						<button type="button" name="" class="btn btn-primary" value="edit" data-toggle="modal" data-target=".modal-edit-<?php echo $catMapel->id_mapel?>"><i class="fa fa-pencil"></i> edit</button>
-						        						<a href="mata-pelajaran/delete/<?php echo $catMapel->id_mapel ?>" class="btn btn-danger" name="active"><i class="fa fa-close"></i> Delete</a>
+						        						<a href="mata-pelajaran/delete/<?php echo $catMapel->id_mapel ?>" class="btn btn-danger" name="active"><i class="fa fa-trash"></i> delete</a>
 						        					</span>
 						        				</form>
 					        					<div class="modal fade modal-edit-<?php echo $catMapel->id_mapel?>" tabindex="-1" role="dialog" aria-hidden="true">
@@ -335,7 +335,7 @@
 					        					<form action="update_kelas" method="post">
 					        						<span class="input-group-btn">
 						        						<button type="button" name="" class="btn btn-primary" value="edit" data-toggle="modal" data-target=".modal-edit-<?php echo $catMapel->id_mapel?>"><i class="fa fa-pencil"></i> edit</button>
-						        						<a href="mata-pelajaran/delete/<?php echo $catMapel->id_mapel ?>" class="btn btn-danger" name="active"><i class="fa fa-close"></i> Delete</a>
+						        						<a href="mata-pelajaran/delete/<?php echo $catMapel->id_mapel ?>" class="btn btn-danger" name="active"><i class="fa fa-trash"></i> delete</a>
 						        					</span>
 						        				</form>
 					        					<div class="modal fade modal-edit-<?php echo $catMapel->id_mapel?>" tabindex="-1" role="dialog" aria-hidden="true">

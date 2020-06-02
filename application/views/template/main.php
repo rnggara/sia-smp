@@ -75,11 +75,12 @@
                       <li><a href="tahun_akademik">Tahun Akademik</a></li>
                       <li><a href="kelas">Kelas</a></li>
                       <li><a href="mata-pelajaran">Mata Pelajaran</a></li>
+                      <li><a href="ekstrakulikuler">Ekstrakulikuler</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-book"></i> Data Akademik <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="identitas">Identitas Sekolah</a></li>
+                      <li><a href="identitas">Daftar Kelas</a></li>
                     </ul>
                   </li>
                   <li><a href="logout"><i class="fa fa-power-off"></i> Logout</a></li>

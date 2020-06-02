@@ -14,6 +14,9 @@ class Admin extends CI_Controller
 			$this->load->model('M_Kelas');
 			$this->load->model('M_Mapel');
 			$this->load->model('M_Siswa');
+			$this->load->model('M_Agama');
+			$this->load->model('M_Ekskul');
+			$this->load->model('M_Tenkepen');
 		}
 	
 	// dashboard
@@ -116,6 +119,8 @@ class Admin extends CI_Controller
 
 	// Function Siswa
 	function siswa(){
+		$data['agama'] = $this->M_Agama->getAll();
+		$data['siswa'] = $this->M_Siswa->getActiveSiswa();
 		$data['identitas'] = $this->M_Sekolah->get_identitas();
 		$data['title'] = "Siswa";
 		$this->template->set('title','Siswa');
@@ -123,10 +128,81 @@ class Admin extends CI_Controller
 	}
 
 	function add_siswa(){
-		$data = array();
+		$tahun = $this->M_Tahun_Akademik->getTahunActive();
+		$tahun_masuk = $tahun->result();
+		$tgl = explode("-", $_POST['tgl_lahir']);
+		$pass = $tgl[2].$tgl[1].$tgl[0];
+		$data = array(
+			'NIS'			=> $_POST['nis'],
+			'NISN'			=> $_POST['nisn'],
+			'nama_siswa'	=> $_POST['nama_siswa'],
+			'tempat_lahir'	=> $_POST['tempat_lahir'],
+			'tanggal_lahir'	=> $_POST['tgl_lahir'],
+			'agama'			=> $_POST['agama'],
+			'jenis_kelamin'	=> $_POST['jenis_kelamin'],
+			'alamat'		=> $_POST['alamat'],
+			'kecamatan'		=> $_POST['kecamatan'],
+			'kota'			=> $_POST['kota'],
+			'kode_pos'		=> $_POST['kode_pos'],
+			'no_hp'			=> $_POST['no_hp'],
+			'nama_ortu'		=> $_POST['nama_ortu'],
+			'no_hp_ortu'	=> $_POST['no_hp_ortu'],
+			'tahun_masuk'	=> $tahun_masuk[0]->tahun_akademik,
+			'user_siswa'	=> $_POST['nis'],
+			'pass_siswa'	=> $pass);
 		$this->M_Siswa->add_siswa($data);
 
 		$this->redirect_to('Berhasil Menambahkan Siswa', 'admin/siswa');
+	}
+
+	// Function ekstrakulikuler
+	function ekstrakulikuler(){
+		$data['ekskul'] = $this->M_Ekskul->getAll();
+		$data['identitas'] = $this->M_Sekolah->get_identitas();
+		$data['title'] = "Ekstrakulikuler";
+		$this->template->set('title','Ekstrakulikuler');
+		$this->template->load('template/main','admin/ekskul', $data);
+	}
+
+	function add_ekskul(){
+		$data = array(
+			'nama_ekskul' => ucwords($_POST['nama_ekskul']));
+		$this->M_Ekskul->add_ekskul($data);
+
+		$this->redirect_to('Berhasil Menambahkan Ekstrakulikuler', 'admin/ekstrakulikuler');
+	}
+
+	function update_ekskul(){
+		if (isset($_POST['aktifkan'])) {
+			$this->M_Ekskul->update_status($_POST['id_ekskul'], '1');
+			$this->redirect_to('Berhasil Mengaktifkan Ekstrakulikuler', 'admin/ekstrakulikuler');
+		} elseif (isset($_POST['tutup'])) {
+			$this->M_Ekskul->update_status($_POST['id_ekskul'], '0');
+			$this->redirect_to('Berhasil Menutup Ekstrakulikuler', 'admin/ekstrakulikuler');
+		} elseif (isset($_POST['delete'])) {
+			$this->M_Ekskul->delete($_POST['id_ekskul']);
+			$this->redirect_to('Berhasil Menghapus Ekstrakulikuler', 'admin/ekstrakulikuler');
+		}
+	}
+
+	// Function Guru
+
+	function guru(){
+		$data['guru'] = $this->M_Tenkepen->getGuru();
+		$data['identitas'] = $this->M_Sekolah->get_identitas();
+		$data['title'] = "Guru";
+		$this->template->set('title','Guru');
+		$this->template->load('template/main','admin/guru', $data);
+	}
+
+	// Function Staff
+
+	function staff(){
+		$data['staff'] = $this->M_Tenkepen->getStaff();
+		$data['identitas'] = $this->M_Sekolah->get_identitas();
+		$data['title'] = "Staff";
+		$this->template->set('title','Staff');
+		$this->template->load('template/main','admin/staff', $data);
 	}
 
 	function redirect_to($message, $link){

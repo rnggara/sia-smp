@@ -155,9 +155,9 @@ if (!empty($tahun_aktif)) {
 					        							if ($catTahunAktif[0]->status == $catAkademik->status) {?>
 						        							<button type="submit" class="btn btn-danger" name="close"><i class="fa fa-close"></i> Tutup</button>
 						        						<?php } else {?>
-						        							<button type="submit" class="btn btn-success" name="active"><i class="fa fa-close"></i> Aktifkan</button>
+						        							<button type="submit" class="btn btn-success" name="active"><i class="fa fa-check"></i> Aktifkan</button>
 					        						<?php }} else {?>
-					        							<button type="submit" class="btn btn-success" name="active"><i class="fa fa-close"></i> Aktifkan</button>
+					        							<button type="submit" class="btn btn-success" name="active"><i class="fa fa-check"></i> Aktifkan</button>
 					        						<?php } ?>
 					        						<button type="button" name="" class="btn btn-primary" value="edit" data-toggle="modal" data-target=".modal-edit-<?php echo $catAkademik->id_akademik?>"><i class="fa fa-pencil"></i> edit</button>
 					        					</span>
@@ -193,16 +193,12 @@ if (!empty($tahun_aktif)) {
 							                          			</td>
 							                          			<td>
 							                          			  <div class="col-md-11 xdisplay_inputx form-group has-feedback">
-									                                <input type="date" class="form-control "  placeholder="First Name" aria-describedby="inputSuccess2Status4" name="tgl_mulai" value="<?php echo format_sql($catAkademik->tgl_mulai) ?>">
-									                                <!-- <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-									                                <span id="inputSuccess2Status4" class="sr-only">(success)</span> -->
+									                                <input type="date" class="form-control "  placeholder="First Name" aria-describedby="inputSuccess2Status4" name="tgl_mulai" value="<?php echo $catAkademik->tgl_mulai ?>">
 									                              </div>
 							                          			</td>
 							                          			<td>
 							                          			  <div class="col-md-11 xdisplay_inputx form-group has-feedback">
-									                                <input type="date" class="form-control "  placeholder="First Name" aria-describedby="inputSuccess2Status5" name="tgl_selesai" value="<?php echo format_sql($catAkademik->tgl_selesai) ?>">
-									                                <!-- <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-									                                <span id="inputSuccess2Status5" class="sr-only">(success)</span> -->
+									                                <input type="date" class="form-control "  placeholder="First Name" aria-describedby="inputSuccess2Status5" name="tgl_selesai" value="<?php echo $catAkademik->tgl_selesai ?>">
 									                              </div>
 							                          			</td>
 							                          		</tr>

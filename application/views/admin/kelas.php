@@ -98,8 +98,8 @@
 				        				<td align="center">
 				        					<form action="update_kelas" method="post">
 				        						<span class="input-group-btn">
-				        							<a href="kelas/isi-kelas" class="btn btn-success" name="active"><i class="fa fa-eye"></i> Lihat Kelas</a>
 					        						<button type="button" name="" class="btn btn-primary" value="edit" data-toggle="modal" data-target=".modal-edit-<?php echo $catKelas->id_kelas?>"><i class="fa fa-pencil"></i> edit</button>
+					        						<a href="kelas/delete/<?php echo $catKelas->id_kelas ?>" class="btn btn-danger" name="active"><i class="fa fa-trash"></i> delete</a>
 					        					</span>
 					        				</form>
 				        					<div class="modal fade modal-edit-<?php echo $catKelas->id_kelas?>" tabindex="-1" role="dialog" aria-hidden="true">
