@@ -55,3 +55,4 @@ $route['translate_uri_dashes'] = FALSE;
 $route['admin/(:num)/siswa'] = 'admin/kelas_siswa/$1';
 $route['admin/mata-pelajaran'] = 'admin/mapel';
 $route['admin/daftar-kelas'] = 'admin/daftar_kelas';
+$route['admin/(:num)/tambah-siswa/(:num)'] = 'admin/tambah_kelas_siswa';

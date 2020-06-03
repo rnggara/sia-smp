@@ -23,6 +23,11 @@ class M_Siswa extends CI_Model
 	function add_siswa($data){
 		$this->db->insert('sia_siswa', $data);
 	}
+
+	function getByID($id){
+		$this->db->where('id_siswa', $id);
+		return $this->db->get('sia_siswa');
+	}
 }
 
  ?>

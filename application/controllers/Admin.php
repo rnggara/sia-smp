@@ -97,12 +97,34 @@ class Admin extends CI_Controller
 
 	function kelas_siswa(){
 		$id = $this->uri->segment(2);
+		$data['tahun_aktif'] = $this->M_Tahun_Akademik->getTahunActive();
+		$tahun = $data['tahun_aktif']->result();
 		$data['kelas'] = $this->M_Kelas->getByID($id);
+		$data['kelas_siswa'] = $this->M_Kelas->getKelasSiswa($id, $tahun[0]->id_akademik);
+		$kelas_result = $data['kelas_siswa']->result();
+		for ($i=0; $i < $data['kelas_siswa']->num_rows(); $i++) { 
+			$data['siswa'][$i] = $this->M_Siswa->getByID($kelas_result[$i]->id_siswa);
+		}
+		$data['siswa_all'] = $this->M_Siswa->getAll();
+		$data['agama'] = $this->M_Agama->getAll();
 		$data['identitas'] = $this->M_Sekolah->get_identitas();
 		$data['title'] = "Kelas";
 		$this->template->set('title','Kelas');
 		$this->template->load('template/main','admin/kelas_siswa', $data);
+	}
 
+	function tambah_kelas_siswa(){
+		$id_siswa = $this->uri->segment(4);
+		$id_kelas = $this->uri->segment(2);
+		$tahun_aktif = $this->M_Tahun_Akademik->getTahunActive();
+		$tahun = $tahun_aktif->result()[0];
+		$data = array(
+			'id_siswa'		=> $id_siswa,
+			'id_kelas'		=> $id_kelas,
+			'id_akademik'	=> $tahun->id_akademik);
+		$this->M_Kelas->add_kelas_siswa($data);
+
+		$this->redirect_to("Berhasil Menambahkan Siswa", "admin/".$id_kelas."/siswa");
 	}
 
 	function add_kelas(){

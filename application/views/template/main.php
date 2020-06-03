@@ -64,23 +64,23 @@
                   </li>
                   <li><a><i class="fa fa-edit"></i> Data Pengguna <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="staff">Staff</a></li>
-                      <li><a href="guru">Guru</a></li>
-                      <li><a href="siswa">Siswa</a></li>
+                      <li><a href="<?php echo base_url('admin/staff') ?>">Staff</a></li>
+                      <li><a href="<?php echo base_url('admin/guru') ?>">Guru</a></li>
+                      <li><a href="<?php echo base_url('admin/siswa') ?>">Siswa</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> Data Master <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="identitas">Identitas Sekolah</a></li>
-                      <li><a href="tahun_akademik">Tahun Akademik</a></li>
-                      <li><a href="kelas">Kelas</a></li>
-                      <li><a href="mata-pelajaran">Mata Pelajaran</a></li>
-                      <li><a href="ekstrakulikuler">Ekstrakulikuler</a></li>
+                      <li><a href="<?php echo base_url('admin/identitas') ?>">Identitas Sekolah</a></li>
+                      <li><a href="<?php echo base_url('admin/tahun_akademik') ?>">Tahun Akademik</a></li>
+                      <li><a href="<?php echo base_url('admin/kelas') ?>">Kelas</a></li>
+                      <li><a href="<?php echo base_url('admin/mata-pelajaran') ?>">Mata Pelajaran</a></li>
+                      <li><a href="<?php echo base_url('admin/ekstrakulikuler') ?>">Ekstrakulikuler</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-book"></i> Data Akademik <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="daftar-kelas">Daftar Kelas</a></li>
+                      <li><a href="<?php echo base_url('admin/daftar-kelas') ?>">Daftar Kelas</a></li>
                     </ul>
                   </li>
                   <li><a href="logout"><i class="fa fa-power-off"></i> Logout</a></li>
