@@ -10,13 +10,8 @@ class M_Tenkepen extends CI_Model
 		return $this->db->get('sia_tenkepen');
 	}
 
-	function getGuru(){
-		$this->db->where('status', 1);
-		return $this->db->get('sia_tenkepen');
-	}
-
-	function getStaff(){
-		$this->db->where('status', 2);
+	function getByRole($status){
+		$this->db->where('status', $status);
 		return $this->db->get('sia_tenkepen');
 	}
 

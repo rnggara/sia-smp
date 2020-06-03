@@ -87,8 +87,22 @@ class Admin extends CI_Controller
 		$this->template->load('template/main','admin/kelas', $data);
 	}
 
-	function detail_kelas(){
-		echo "ini kelas";
+	function daftar_kelas(){
+		$data['kelas'] = $this->M_Kelas->getAll();
+		$data['identitas'] = $this->M_Sekolah->get_identitas();
+		$data['title'] = "Kelas";
+		$this->template->set('title','Kelas');
+		$this->template->load('template/main','admin/kelas_list', $data);
+	}
+
+	function kelas_siswa(){
+		$id = $this->uri->segment(2);
+		$data['kelas'] = $this->M_Kelas->getByID($id);
+		$data['identitas'] = $this->M_Sekolah->get_identitas();
+		$data['title'] = "Kelas";
+		$this->template->set('title','Kelas');
+		$this->template->load('template/main','admin/kelas_siswa', $data);
+
 	}
 
 	function add_kelas(){
@@ -188,21 +202,80 @@ class Admin extends CI_Controller
 	// Function Guru
 
 	function guru(){
-		$data['guru'] = $this->M_Tenkepen->getGuru();
+		$data['agama'] = $this->M_Agama->getAll();
+		$data['guru'] = $this->M_Tenkepen->getByRole(1);
 		$data['identitas'] = $this->M_Sekolah->get_identitas();
 		$data['title'] = "Guru";
 		$this->template->set('title','Guru');
 		$this->template->load('template/main','admin/guru', $data);
 	}
 
+	function add_guru(){
+		$tgl = explode("-", $_POST['tgl_lahir']);
+		$pass = $tgl[2].$tgl[1].$tgl[0];
+		$data = array(
+			'NIP'			=> $_POST['nip'],
+			'nama_lengkap'	=> $_POST['nama_lengkap'],
+			'tempat_lahir'	=> $_POST['tempat_lahir'],
+			'tanggal_lahir'	=> $_POST['tgl_lahir'],
+			'agama'			=> $_POST['agama'],
+			'jenis_kelamin'	=> $_POST['jenis_kelamin'],
+			'alamat'		=> $_POST['alamat'],
+			'kecamatan'		=> $_POST['kecamatan'],
+			'kota'			=> $_POST['kota'],
+			'kode_pos'		=> $_POST['kode_pos'],
+			'no_hp'			=> $_POST['no_hp'],
+			'email_'		=> $_POST['email'],
+			'user_'			=> $_POST['nip'],
+			'pass_'			=> $pass,
+			'status'		=> 1);
+		$this->M_Tenkepen->add_tenkepen($data);
+
+		$this->redirect_to('Berhasil Menambahkan Guru', 'admin/guru');
+
+	}
+
+	function update_guru(){
+
+	}
+
 	// Function Staff
 
 	function staff(){
-		$data['staff'] = $this->M_Tenkepen->getStaff();
+		$data['agama'] = $this->M_Agama->getAll();
+		$data['staff'] = $this->M_Tenkepen->getByRole(2);
 		$data['identitas'] = $this->M_Sekolah->get_identitas();
 		$data['title'] = "Staff";
 		$this->template->set('title','Staff');
 		$this->template->load('template/main','admin/staff', $data);
+	}
+
+	function add_staff(){
+		$tgl = explode("-", $_POST['tgl_lahir']);
+		$pass = $tgl[2].$tgl[1].$tgl[0];
+		$data = array(
+			'NIP'			=> $_POST['nip'],
+			'nama_lengkap'	=> $_POST['nama_lengkap'],
+			'tempat_lahir'	=> $_POST['tempat_lahir'],
+			'tanggal_lahir'	=> $_POST['tgl_lahir'],
+			'agama'			=> $_POST['agama'],
+			'jenis_kelamin'	=> $_POST['jenis_kelamin'],
+			'alamat'		=> $_POST['alamat'],
+			'kecamatan'		=> $_POST['kecamatan'],
+			'kota'			=> $_POST['kota'],
+			'kode_pos'		=> $_POST['kode_pos'],
+			'no_hp'			=> $_POST['no_hp'],
+			'email_'		=> $_POST['email'],
+			'user_'			=> $_POST['nip'],
+			'pass_'			=> $pass,
+			'status'		=> 2);
+		$this->M_Tenkepen->add_tenkepen($data);
+
+		$this->redirect_to('Berhasil Menambahkan Staff', 'admin/staff');
+	}
+
+	function update_staff(){
+
 	}
 
 	function redirect_to($message, $link){

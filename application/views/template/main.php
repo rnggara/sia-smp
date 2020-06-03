@@ -80,7 +80,7 @@
                   </li>
                   <li><a><i class="fa fa-book"></i> Data Akademik <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="identitas">Daftar Kelas</a></li>
+                      <li><a href="daftar-kelas">Daftar Kelas</a></li>
                     </ul>
                   </li>
                   <li><a href="logout"><i class="fa fa-power-off"></i> Logout</a></li>
