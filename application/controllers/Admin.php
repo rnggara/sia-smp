@@ -14,7 +14,7 @@ class Admin extends CI_Controller
 			$this->load->model('M_Kelas');
 			$this->load->model('M_Mapel');
 			$this->load->model('M_Siswa');
-			$this->load->model('M_Agama');
+			$this->load->model('M_Other');
 			$this->load->model('M_Ekskul');
 			$this->load->model('M_Tenkepen');
 		}
@@ -106,7 +106,7 @@ class Admin extends CI_Controller
 			$data['siswa'][$i] = $this->M_Siswa->getByID($kelas_result[$i]->id_siswa);
 		}
 		$data['siswa_all'] = $this->M_Siswa->getAll();
-		$data['agama'] = $this->M_Agama->getAll();
+		$data['agama'] = $this->M_Other->getAll();
 		$data['identitas'] = $this->M_Sekolah->get_identitas();
 		$data['title'] = "Kelas";
 		$this->template->set('title','Kelas');
@@ -125,6 +125,43 @@ class Admin extends CI_Controller
 		$this->M_Kelas->add_kelas_siswa($data);
 
 		$this->redirect_to("Berhasil Menambahkan Siswa", "admin/".$id_kelas."/siswa");
+	}
+
+	function kelas_jadwal(){
+		$id = $this->uri->segment(2);
+		$data['tahun_aktif'] = $this->M_Tahun_Akademik->getTahunActive();
+		$tahun = $data['tahun_aktif']->result();
+		$data['kelas'] = $this->M_Kelas->getByID($id);
+		$data['jadwal_kelas'] = $this->M_Kelas->get_kelas_jadwal($id, $tahun[0]->id_akademik);
+		$jadwal_result = $data['jadwal_kelas']->result();
+		$kelas = $data['kelas']->result()[0];
+		for ($i=0; $i < $data['jadwal_kelas']->num_rows(); $i++) { 
+			$data['mapel'][$i] = $this->M_Mapel->getByID($jadwal_result[$i]->id_mapel);
+		}
+		$data['mapel_all'] = $this->M_Mapel->getByTingkat($kelas->tingkat);
+		$data['jam'] = $this->M_Other->getJam();
+		$data['guru'] = $this->M_Tenkepen->getByRole(1);
+		$data['hari'] = $this->M_Other->getHari();
+		$data['identitas'] = $this->M_Sekolah->get_identitas();
+		$data['title'] = "Kelas";
+		$this->template->set('title','Kelas');
+		$this->template->load('template/main','admin/kelas_jadwal', $data);
+	}
+
+	function add_jadwal(){
+		$tahun_aktif = $this->M_Tahun_Akademik->getTahunActive();
+		$tahun = $tahun_aktif->result()[0];
+		$id_kelas = $_POST['id_kelas'];
+		$data = array(
+			'id_mapel' => $_POST['mapel'],
+			'id_kelas' => $id_kelas,
+			'id_akademik' => $tahun->id_akademik,
+			'id_hari' => $_POST['hari'],
+			'id_tenkepen' => $_POST['guru'],
+			'jam_mulai' => $_POST['jam_mulai'],
+			'jam_selesai' => $_POST['jam_selesai']);
+		$this->M_Kelas->add_jadwal($data);
+		$this->redirect_to('Berhasil Menambahkan Jadwal', "admin/".$id_kelas."/jadwal");
 	}
 
 	function add_kelas(){
@@ -155,7 +192,7 @@ class Admin extends CI_Controller
 
 	// Function Siswa
 	function siswa(){
-		$data['agama'] = $this->M_Agama->getAll();
+		$data['agama'] = $this->M_Other->getAll();
 		$data['siswa'] = $this->M_Siswa->getActiveSiswa();
 		$data['identitas'] = $this->M_Sekolah->get_identitas();
 		$data['title'] = "Siswa";
@@ -224,7 +261,7 @@ class Admin extends CI_Controller
 	// Function Guru
 
 	function guru(){
-		$data['agama'] = $this->M_Agama->getAll();
+		$data['agama'] = $this->M_Other->getAll();
 		$data['guru'] = $this->M_Tenkepen->getByRole(1);
 		$data['identitas'] = $this->M_Sekolah->get_identitas();
 		$data['title'] = "Guru";
@@ -264,7 +301,7 @@ class Admin extends CI_Controller
 	// Function Staff
 
 	function staff(){
-		$data['agama'] = $this->M_Agama->getAll();
+		$data['agama'] = $this->M_Other->getAll();
 		$data['staff'] = $this->M_Tenkepen->getByRole(2);
 		$data['identitas'] = $this->M_Sekolah->get_identitas();
 		$data['title'] = "Staff";

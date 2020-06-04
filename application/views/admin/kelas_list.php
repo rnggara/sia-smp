@@ -43,8 +43,8 @@
 				        				<td align="center">
 				        					<form action="update_kelas" method="post">
 				        						<span class="input-group-btn">
-					        						<a href="<?php echo $catKelas->id_kelas.'/siswa' ?>" class="btn btn-info" name="active"><i class="fa fa-eye"></i> liaht daftar siswa</a>
-					        						<a href="kelas/jadwal/<?php echo $catKelas->id_kelas ?>" class="btn btn-info" name="active"><i class="fa fa-calendar"></i> liaht jadwal</a>
+					        						<a href="<?php echo $catKelas->id_kelas.'/siswa' ?>" class="btn btn-info" name="active"><i class="fa fa-eye"></i> lihat daftar siswa</a>
+					        						<a href="<?php echo $catKelas->id_kelas.'/jadwal' ?>" class="btn btn-info" name="active"><i class="fa fa-calendar"></i> lihat jadwal</a>
 					        					</span>
 					        				</form>
 				        					<div class="modal fade modal-edit-<?php echo $catKelas->id_kelas?>" tabindex="-1" role="dialog" aria-hidden="true">

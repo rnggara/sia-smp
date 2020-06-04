@@ -44,6 +44,16 @@ class M_Kelas extends CI_Model
 	function add_kelas_siswa($data){
 		$this->db->insert('t_kelas_siswa', $data);
 	}
+
+	function get_kelas_jadwal($id, $tahun){
+		$this->db->where('id_kelas', $id);
+		$this->db->where('id_akademik', $tahun);
+		return $this->db->get('t_jadwal');
+	}
+
+	function add_jadwal($data){
+		$this->db->insert('t_jadwal', $data);
+	}
 }
 
  ?>

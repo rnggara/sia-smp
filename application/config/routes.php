@@ -53,6 +53,7 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['admin/(:num)/siswa'] = 'admin/kelas_siswa/$1';
+$route['admin/(:num)/jadwal'] = 'admin/kelas_jadwal/$1';
 $route['admin/mata-pelajaran'] = 'admin/mapel';
 $route['admin/daftar-kelas'] = 'admin/daftar_kelas';
 $route['admin/(:num)/tambah-siswa/(:num)'] = 'admin/tambah_kelas_siswa';
