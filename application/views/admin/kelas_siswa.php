@@ -32,6 +32,35 @@
 				        <br />
 				        <!-- tambah tahun -->
 				        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".modal-tambah"><i class="fa fa-plus"></i> Tambah Siswa</button>
+				        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#wali-kelas"> <i class="fa fa-user"> Wali Kelas</i></button>
+
+				        <div class="modal fade" id="wali-kelas" tabindex="-1" role="dialog" aria-hidden="true">
+				        	<div class="modal-dialog modal-sm">
+				        		<div class="modal-content">
+				        			<div class="modal-header">
+				        				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+				        				<h4 class="modal-title" id="myModalLabel">Wali Kelas</h4>
+				        			</div>
+				        			<form>
+				        				<div class="modal-body">
+				        					<span class="form-horizontal form-label-left form">
+				        						<label>Daftar Guru</label>
+				        						<select name="guru" required="" class="form-control">
+				        							<option value=""></option>
+				        							<?php foreach ($guru->result() as $catGuru): ?>
+				        								<option value="<?php echo $catGuru->id_tenkepen ?>"><?php echo $catGuru->nama_lengkap ?></option>
+				        							<?php endforeach ?>
+				        						</select>
+				        					</span>
+				        				</div>
+				        				<div class="modal-footer">
+				        					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		                          			<input type="submit" class="btn btn-primary" value="Tambah">
+				        				</div>
+				        			</form>
+				        		</div>
+				        	</div>
+				        </div>
 
 		                  <div class="modal fade modal-tambah" tabindex="-1" role="dialog" aria-hidden="true">
 		                    <div class="modal-dialog modal-lg">

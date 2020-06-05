@@ -33,6 +33,7 @@
 				        	<thead>
 				        		<tr>
 				        			<th>Nama Kelas</th>
+				        			<th>Wali Kelas</th>
 				        			<th class="col-md-3">Aksi</th>
 				        		</tr>
 				        	</thead>
@@ -40,6 +41,7 @@
 				        		<?php foreach ($kelas->result() as $catKelas) { ?>
 				        			<tr>
 				        				<td><?php echo $catKelas->nama_kelas ?></td>
+				        				<td></td>
 				        				<td align="center">
 				        					<form action="update_kelas" method="post">
 				        						<span class="input-group-btn">

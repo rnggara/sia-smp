@@ -88,6 +88,8 @@ class Admin extends CI_Controller
 	}
 
 	function daftar_kelas(){
+		$data['wali'] = $this->M_Kelas->get_wali_kelas();
+		$data['guru'] = $this->M_Tenkepen->getByRole(1);
 		$data['kelas'] = $this->M_Kelas->getAll();
 		$data['identitas'] = $this->M_Sekolah->get_identitas();
 		$data['title'] = "Kelas";
@@ -105,6 +107,7 @@ class Admin extends CI_Controller
 		for ($i=0; $i < $data['kelas_siswa']->num_rows(); $i++) { 
 			$data['siswa'][$i] = $this->M_Siswa->getByID($kelas_result[$i]->id_siswa);
 		}
+		$data['guru'] = $this->M_Tenkepen->getByRole(1);
 		$data['siswa_all'] = $this->M_Siswa->getAll();
 		$data['agama'] = $this->M_Other->getAll();
 		$data['identitas'] = $this->M_Sekolah->get_identitas();
