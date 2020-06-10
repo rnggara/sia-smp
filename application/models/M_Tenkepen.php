@@ -10,6 +10,11 @@ class M_Tenkepen extends CI_Model
 		return $this->db->get('sia_tenkepen');
 	}
 
+	function getByID($id){
+		$this->db->where('id_tenkepen', $id);
+		return $this->db->get('sia_tenkepen');
+	}
+
 	function getByRole($status){
 		$this->db->where('status', $status);
 		return $this->db->get('sia_tenkepen');

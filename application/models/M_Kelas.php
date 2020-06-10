@@ -55,7 +55,8 @@ class M_Kelas extends CI_Model
 		$this->db->insert('t_jadwal', $data);
 	}
 
-	function get_wali_kelas(){
+	function get_wali_kelas($id){
+		$this->db->where('id_kelas', $id);
 		return $this->db->get('t_wali_kelas');
 	}
 

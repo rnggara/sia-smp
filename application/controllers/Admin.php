@@ -68,9 +68,7 @@ class Admin extends CI_Controller
 		} elseif (isset($_POST['close'])) {
 			$this->M_Tahun_Akademik->closeTahun($id);
 			$this->redirect_to('Berhasil menutup Tahun Akademik', 'admin/tahun_akademik');
-		}
-
-		
+		}		
 	}
 
 	function close_akademik(){
@@ -88,9 +86,17 @@ class Admin extends CI_Controller
 	}
 
 	function daftar_kelas(){
-		$data['wali'] = $this->M_Kelas->get_wali_kelas();
-		$data['guru'] = $this->M_Tenkepen->getByRole(1);
+		// $data['wali'] = $this->M_Kelas->get_wali_kelas();
 		$data['kelas'] = $this->M_Kelas->getAll();
+		$data['guru'] = $this->M_Tenkepen->getByRole(1);
+		$kelas = $data['kelas']->result();
+		for ($i=0; $i < $data['kelas']->num_rows(); $i++) { 
+			$wali[$i] = $this->M_Kelas->get_wali_kelas($kelas[$i]->id_kelas);
+			for ($j=0; $j < $wali[$i]->num_rows(); $j++) { 
+				$waliResult = $wali[$i]->result()[0];
+				$data['nama_wali'][$j] = $this->M_Tenkepen->getByID($waliResult->id_tenkepen);
+			}
+		}
 		$data['identitas'] = $this->M_Sekolah->get_identitas();
 		$data['title'] = "Kelas";
 		$this->template->set('title','Kelas');
@@ -172,6 +178,19 @@ class Admin extends CI_Controller
 		$tingkat = $_POST['tingkat'];
 		$this->M_Kelas->add_kelas($nama_kelas, $tingkat);
 		$this->redirect_to('Berhasil menambahkan Kelas', 'admin/kelas');
+	}
+
+	function set_wali_kelas(){
+		$id_guru = $_POST['id_guru'];
+		$id_kelas = $_POST['id_kelas'];
+		$tahun_aktif = $this->M_Tahun_Akademik->getTahunActive();
+		$tahun = $tahun_aktif->result()[0];
+		$data = array(
+			'id_kelas' => $id_kelas,
+			'id_tenkepen' => $id_guru,
+			'id_akademik' => $tahun->id_akademik);
+		$this->M_Kelas->set_wali_kelas($data);
+		$this->redirect_to("Berhasil Menambahkan Wali Kelas", "admin/".$id_kelas."/siswa");
 	}
 
 	// Function Mapel
@@ -259,6 +278,47 @@ class Admin extends CI_Controller
 			$this->M_Ekskul->delete($_POST['id_ekskul']);
 			$this->redirect_to('Berhasil Menghapus Ekstrakulikuler', 'admin/ekstrakulikuler');
 		}
+	}
+
+	function daftar_ekskul(){
+		$data['ekskul'] = $this->M_Ekskul->getActive();
+		$data['identitas'] = $this->M_Sekolah->get_identitas();
+		$data['title'] = "Ekstrakulikuler";
+		$this->template->set('title','Ekstrakulikuler');
+		$this->template->load('template/main','admin/ekskul_list', $data);
+	}
+
+	function detail_ekskul(){
+		$id = $this->uri->segment(2);
+		$data['tahun_aktif'] = $this->M_Tahun_Akademik->getTahunActive();
+		$tahun = $data['tahun_aktif']->result();
+		$data['ekskul'] = $this->M_Ekskul->getByID($id);
+		$data['ekskul_siswa'] = $this->M_Ekskul->get_ekskul_sisw($id, $tahun[0]->id_akademik);
+		$ekskul_result = $data['ekskul_siswa']->result();
+		for ($i=0; $i < $data['ekskul_siswa']->num_rows(); $i++) { 
+			$data['siswa'][$i] = $this->M_Siswa->getByID($ekskul_result[$i]->id_siswa);
+		}
+		$data['guru'] = $this->M_Tenkepen->getByRole(1);
+		$data['siswa_all'] = $this->M_Siswa->getAll();
+		$data['agama'] = $this->M_Other->getAll();
+		$data['identitas'] = $this->M_Sekolah->get_identitas();
+		$data['title'] = "Kelas";
+		$this->template->set('title','Kelas');
+		$this->template->load('template/main','admin/ekskul_siswa', $data);
+	}
+
+	function add_siswa_ekskul(){
+		$id_siswa = $this->uri->segment(4);
+		$id_ekskul = $this->uri->segment(2);
+		$tahun_aktif = $this->M_Tahun_Akademik->getTahunActive();
+		$tahun = $tahun_aktif->result()[0];
+		$data = array(
+			'id_siswa'		=> $id_siswa,
+			'id_ekskul'		=> $id_ekskul,
+			'id_akademik'	=> $tahun->id_akademik);
+		$this->M_Ekskul->add_ekskul_siswa($data);
+
+		$this->redirect_to("Berhasil Menambahkan Siswa", "admin/".$id_ekskul."/ekstrakulikuler");
 	}
 
 	// Function Guru

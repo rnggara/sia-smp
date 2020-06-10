@@ -83,6 +83,11 @@
                       <li><a href="<?php echo base_url('admin/daftar-kelas') ?>">Daftar Kelas</a></li>
                     </ul>
                   </li>
+                  <li><a><i class="fa fa-book"></i> Data Non Akademik <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="<?php echo base_url('admin/daftar-ekstrakulikuler') ?>">Daftar Ekstrakulikuler</a></li>
+                    </ul>
+                  </li>
                   <li><a href="logout"><i class="fa fa-power-off"></i> Logout</a></li>
                 </ul>
               </div>

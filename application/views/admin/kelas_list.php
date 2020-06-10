@@ -38,10 +38,20 @@
 				        		</tr>
 				        	</thead>
 				        	<tbody>
-				        		<?php foreach ($kelas->result() as $catKelas) { ?>
+				        		<?php $x=0; foreach ($kelas->result() as $catKelas) {
+				        		?>
 				        			<tr>
 				        				<td><?php echo $catKelas->nama_kelas ?></td>
-				        				<td></td>
+				        				<td>
+				        					<?php 
+				        					if (isset($nama_wali[$x])) {
+				        						echo $nama_wali[$x]->result()[0]->nama_lengkap;
+				        					} else {
+				        						echo "<code>Wali kelas belum ditentukan</code>";
+				        					}
+				        						$x++;
+				        					 ?>
+				        				</td>
 				        				<td align="center">
 				        					<form action="update_kelas" method="post">
 				        						<span class="input-group-btn">
