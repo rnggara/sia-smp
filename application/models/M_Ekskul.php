@@ -46,12 +46,20 @@ class M_Ekskul extends CI_Model
 		$this->db->insert('t_ekskul_siswa', $data);
 	}
 
-	function get_pembina_ekskul(){
+	function get_pembina_ekskul($id, $id_akademik){
+		$this->db->where('id_ekskul', $id);
+		$this->db->where('id_akademik', $id_akademik);
 		return $this->db->get('t_pembina_ekskul');
 	}
 
 	function set_pembina_ekskul($data){
 		$this->db->insert('t_pembina_ekskul', $data);
+	}
+
+	function update_pembina_ekskul($id, $id_akademik, $data){
+		$this->db->where('id_ekskul', $id);
+		$this->db->where('id_akademik', $id_akademik);
+		$this->db->update('t_pembina_ekskul', $data);
 	}
 }
 

@@ -87,11 +87,13 @@ class Admin extends CI_Controller
 
 	function daftar_kelas(){
 		// $data['wali'] = $this->M_Kelas->get_wali_kelas();
+		$data['tahun_aktif'] = $this->M_Tahun_Akademik->getTahunActive();
+		$tahun = $data['tahun_aktif']->result();
 		$data['kelas'] = $this->M_Kelas->getAll();
 		$data['guru'] = $this->M_Tenkepen->getByRole(1);
 		$kelas = $data['kelas']->result();
 		for ($i=0; $i < $data['kelas']->num_rows(); $i++) { 
-			$wali[$i] = $this->M_Kelas->get_wali_kelas($kelas[$i]->id_kelas);
+			$wali[$i] = $this->M_Kelas->get_wali_kelas($kelas[$i]->id_kelas, $tahun[0]->id_akademik);
 			for ($j=0; $j < $wali[$i]->num_rows(); $j++) { 
 				$waliResult = $wali[$i]->result()[0];
 				$data['nama_wali'][$j] = $this->M_Tenkepen->getByID($waliResult->id_tenkepen);
@@ -109,6 +111,7 @@ class Admin extends CI_Controller
 		$tahun = $data['tahun_aktif']->result();
 		$data['kelas'] = $this->M_Kelas->getByID($id);
 		$data['kelas_siswa'] = $this->M_Kelas->getKelasSiswa($id, $tahun[0]->id_akademik);
+		$data['wali_kelas'] = $this->M_Kelas->get_wali_kelas($id, $tahun[0]->id_akademik);
 		$kelas_result = $data['kelas_siswa']->result();
 		for ($i=0; $i < $data['kelas_siswa']->num_rows(); $i++) { 
 			$data['siswa'][$i] = $this->M_Siswa->getByID($kelas_result[$i]->id_siswa);
@@ -185,12 +188,20 @@ class Admin extends CI_Controller
 		$id_kelas = $_POST['id_kelas'];
 		$tahun_aktif = $this->M_Tahun_Akademik->getTahunActive();
 		$tahun = $tahun_aktif->result()[0];
-		$data = array(
-			'id_kelas' => $id_kelas,
-			'id_tenkepen' => $id_guru,
-			'id_akademik' => $tahun->id_akademik);
-		$this->M_Kelas->set_wali_kelas($data);
-		$this->redirect_to("Berhasil Menambahkan Wali Kelas", "admin/".$id_kelas."/siswa");
+		if (isset($_POST['add'])){
+			$msg = "Berhasil Menambahkan Wali Kelas";
+			$data = array(
+				'id_kelas' => $id_kelas,
+				'id_tenkepen' => $id_guru,
+				'id_akademik' => $tahun->id_akademik);
+			$this->M_Kelas->set_wali_kelas($data);
+		} else {
+			$msg = "Berhasil Mengganti Wali Kelas";
+			$data = array(
+				'id_tenkepen' => $id_guru);
+			$this->M_Kelas->update_wali_kelas($id_kelas, $tahun->id_akademik, $data);
+		}
+		$this->redirect_to($msg, "admin/".$id_kelas."/siswa");
 	}
 
 	// Function Mapel
@@ -294,6 +305,7 @@ class Admin extends CI_Controller
 		$tahun = $data['tahun_aktif']->result();
 		$data['ekskul'] = $this->M_Ekskul->getByID($id);
 		$data['ekskul_siswa'] = $this->M_Ekskul->get_ekskul_sisw($id, $tahun[0]->id_akademik);
+		$data['pembina_ekskul'] = $this->M_Ekskul->get_pembina_ekskul($id, $tahun[0]->id_akademik);
 		$ekskul_result = $data['ekskul_siswa']->result();
 		for ($i=0; $i < $data['ekskul_siswa']->num_rows(); $i++) { 
 			$data['siswa'][$i] = $this->M_Siswa->getByID($ekskul_result[$i]->id_siswa);
@@ -319,6 +331,27 @@ class Admin extends CI_Controller
 		$this->M_Ekskul->add_ekskul_siswa($data);
 
 		$this->redirect_to("Berhasil Menambahkan Siswa", "admin/".$id_ekskul."/ekstrakulikuler");
+	}
+
+	function set_pembina_ekskul(){
+		$id_guru = $_POST['id_guru'];
+		$id_ekskul = $_POST['id_ekskul'];
+		$tahun_aktif = $this->M_Tahun_Akademik->getTahunActive();
+		$tahun = $tahun_aktif->result()[0];
+		if (isset($_POST['add'])){
+			$msg = "Berhasil Menambahkan Pembina Ekstrakulikuler";
+			$data = array(
+				'id_ekskul' => $id_ekskul,
+				'id_tenkepen' => $id_guru,
+				'id_akademik' => $tahun->id_akademik);
+			$this->M_Ekskul->set_pembina_ekskul($data);
+		} else {
+			$msg = "Berhasil Mengganti Pembina Ekstrakulikuler";
+			$data = array(
+				'id_tenkepen' => $id_guru);
+			$this->M_Ekskul->update_pembina_ekskul($id_ekskul, $tahun->id_akademik, $data);
+		}
+		$this->redirect_to($msg, "admin/".$id_ekskul."/ekstrakulikuler");
 	}
 
 	// Function Guru

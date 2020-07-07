@@ -5,6 +5,13 @@
  */
 class M_Tenkepen extends CI_Model
 {
+
+	function login($user, $pass, $type){
+		$this->db->where('user_', $user);
+		$this->db->where('pass_', $pass);
+		$this->db->where($type);
+		return $this->db->get('sia_tenkepen');
+	}
 	
 	function getAll(){
 		return $this->db->get('sia_tenkepen');

@@ -1,5 +1,10 @@
 <?php $catKelas = $kelas->result()[0];
-	$catTahun = $tahun_aktif->result()[0]; ?>
+	$catTahun = $tahun_aktif->result()[0];
+	if (!empty($wali_kelas->result())){
+		$catWali = $wali_kelas->result();
+		$id_wali_kelas = $catWali[0]->id_tenkepen;
+	}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +53,7 @@
 				        						<select name="id_guru" required="" class="form-control">
 				        							<option value=""></option>
 				        							<?php foreach ($guru->result() as $catGuru): ?>
-				        								<option value="<?php echo $catGuru->id_tenkepen ?>"><?php echo $catGuru->nama_lengkap ?></option>
+				        								<option value="<?php echo $catGuru->id_tenkepen ?>" <?php if(!empty($id_wali_kelas) && $id_wali_kelas == $catGuru->id_tenkepen){ echo "selected"; } ?>><?php echo $catGuru->nama_lengkap ?></option>
 				        							<?php endforeach ?>
 				        						</select>
 				        					</span>
@@ -56,7 +61,11 @@
 				        				<div class="modal-footer">
 				        					<input type="hidden" name="id_kelas" value="<?php echo $catKelas->id_kelas ?>">
 				        					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		                          			<input type="submit" class="btn btn-primary" value="Tambah">
+											<?php if (!empty($id_wali_kelas)){ ?>
+												<input type="submit" class="btn btn-primary" name="edit" value="Ganti">
+											<?php } else { ?>
+												<input type="submit" class="btn btn-primary" name="add" value="Tambah">
+											<?php } ?>
 				        				</div>
 				        			</form>
 				        		</div>
@@ -121,7 +130,7 @@
 				        		</tr>
 				        	</thead>
 				        	<tbody>
-				        		<?php 
+				        		<?php
 				        		$catList = $kelas_siswa->result();
 				        		for ($i=0; $i < $kelas_siswa->num_rows(); $i++) { 
 				        			$catSiswa = $siswa[$i]->result()[0]; ?>

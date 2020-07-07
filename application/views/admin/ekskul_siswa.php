@@ -1,5 +1,9 @@
 <?php $catEkskul = $ekskul->result()[0];
-	$catTahun = $tahun_aktif->result()[0]; ?>
+	$catTahun = $tahun_aktif->result()[0];
+	if (!empty($pembina_ekskul->result())){
+		$catPembina = $pembina_ekskul->result();
+		$id_pembina = $catPembina[0]->id_tenkepen;
+	}?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,21 +45,26 @@
 				        				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
 				        				<h4 class="modal-title" id="myModalLabel">Pembina</h4>
 				        			</div>
-				        			<form>
+				        			<form method="post" action="<?php echo base_url('admin/set_pembina_ekskul') ?>" >
 				        				<div class="modal-body">
 				        					<span class="form-horizontal form-label-left form">
 				        						<label>Daftar Guru</label>
-				        						<select name="guru" required="" class="form-control">
+				        						<select name="id_guru" required="" class="form-control">
 				        							<option value=""></option>
 				        							<?php foreach ($guru->result() as $catGuru): ?>
-				        								<option value="<?php echo $catGuru->id_tenkepen ?>"><?php echo $catGuru->nama_lengkap ?></option>
+				        								<option value="<?php echo $catGuru->id_tenkepen ?>" <?php if(!empty($id_pembina) && $id_pembina == $catGuru->id_tenkepen){ echo "selected"; } ?>><?php echo $catGuru->nama_lengkap ?></option>
 				        							<?php endforeach ?>
 				        						</select>
 				        					</span>
 				        				</div>
 				        				<div class="modal-footer">
+											<input type="hidden" name="id_ekskul" value="<?php echo $catEkskul->id_ekskul ?>">
 				        					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		                          			<input type="submit" class="btn btn-primary" value="Tambah">
+											<?php if (!empty($id_pembina)){ ?>
+												<input type="submit" class="btn btn-primary" name="edit" value="Ganti">
+											<?php } else { ?>
+												<input type="submit" class="btn btn-primary" name="add" value="Tambah">
+											<?php } ?>
 				        				</div>
 				        			</form>
 				        		</div>

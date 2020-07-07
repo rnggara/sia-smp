@@ -5,7 +5,14 @@
  */
 class M_Siswa extends CI_Model
 {
-	
+
+	function login($user, $pass){
+		$this->db->where('user_siswa', $user);
+		$this->db->where('pass_siswa', $pass);
+		$this->db->where('status', 1);
+		return $this->db->get('sia_siswa');
+	}
+
 	function getAll(){
 		return $this->db->get('sia_siswa');
 	}

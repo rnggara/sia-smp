@@ -55,13 +55,20 @@ class M_Kelas extends CI_Model
 		$this->db->insert('t_jadwal', $data);
 	}
 
-	function get_wali_kelas($id){
+	function get_wali_kelas($id, $id_akademik){
 		$this->db->where('id_kelas', $id);
+		$this->db->where('id_akademik', $id_akademik);
 		return $this->db->get('t_wali_kelas');
 	}
 
 	function set_wali_kelas($data){
 		$this->db->insert('t_wali_kelas', $data);
+	}
+
+	function update_wali_kelas($id, $id_akademik, $data){
+		$this->db->where('id_kelas', $id);
+		$this->db->where('id_akademik', $id_akademik);
+		$this->db->update('t_wali_kelas', $data);
 	}
 }
 
