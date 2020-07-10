@@ -13,7 +13,7 @@
       <div class="x_panel">
         <div class="x_title">
           <h1 class="text-center">Selamat datang di <br> <?php echo $catIdentitas->nama ?></h1>
-          <h3 class="text-center"><?= $jk.$catGuru->nama_lengkap ?></h3>
+          <!-- <h3 class="text-center"><?= $jk.$catGuru->nama_lengkap ?></h3> -->
           <div class="filter">
           </div>
           <div class="clearfix"></div>
