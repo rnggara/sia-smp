@@ -37,6 +37,12 @@ class M_Tenkepen extends CI_Model
 		$this->db->where('id_tenkepen', $id);
 		$this->db->update('sia_tenkepen');
 	}
+
+	function get_guru_ampu($id, $id_akademik){
+		$this->db->where('id_tenkepen', $id);
+		$this->db->where('id_akademik', $id_akademik);
+		return $this->db->get('t_jadwal');
+	}
 }
 
  ?>

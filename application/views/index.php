@@ -43,7 +43,7 @@
 						<input type="password" name="pass" class="form-control" placeholder="Password" required="" />
 					</div>
 					<div>
-						<select name="type" class="form-control">
+						<select name="type" class="form-control" required="">
 							<option value="">Login sebagai</option>
 							<option value="1">Siswa</option>
 							<option value="2">Guru</option>

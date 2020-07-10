@@ -44,8 +44,8 @@
                       <!-- Tab panes -->
 	                      <div class="tab-content">
 	                        <div class="tab-pane active" id="vii">
-	                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".modal-tambah-vii"><i class="fa fa-plus"></i> Tambah Mata Pelajaran Tingkat VII</button>
-	                           <div class="modal fade modal-tambah-vii" tabindex="-1" role="dialog" aria-hidden="true">
+	                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah-vii"><i class="fa fa-plus"></i> Tambah Mata Pelajaran Tingkat VII</button>
+	                           <div class="modal fade" id="modal-tambah-vii" tabindex="-1" role="dialog" aria-hidden="true">
 			                    <div class="modal-dialog modal-lg">
 			                      <div class="modal-content">
 			                        <div class="modal-header">
@@ -53,33 +53,33 @@
 			                          </button>
 			                          <h4 class="modal-title" id="myModalLabel">Tambah Mata Pelajaran</h4>
 			                        </div>
-			                        <div class="modal-body">
-			                          <form action="add_mapel" method="post">
-			                          	<table class="table">
-			                          		<tr>
-			                          			<td colspan="3">Mata Pelajaran</td>
-			                          		</tr>
-			                          		<tr>
-			                          			<td>
-			                          			  <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-								                    <input type="text" placeholder="Contoh: Matematika" class="form-control" name="nama_mapel" required="">
-								                  </div>
-			                          			</td>
-			                          			<td>
-			                          			  <select class="form-control" required="" name="tahun">
-						                            <option value="">Pilih Tahun Akademik</option>
-						                            <option value="1">Ganjil</option>
-						                            <option value="2">Genap</option>
-						                          </select>
-			                          			</td>
-			                          		</tr>
-			                          	</table>
-			                        </div>
-			                        <div class="modal-footer">
-			                          <input type="hidden" name="tingkat" value="1">
-			                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			                          <input type="submit" class="btn btn-primary" value="Tambah">
-			                        </div>
+			                        <form action="add_mapel" method="post">
+			                        	<div class="modal-body">
+				                          	<table class="table">
+				                          		<tr>
+				                          			<td colspan="3">Mata Pelajaran</td>
+				                          		</tr>
+				                          		<tr>
+				                          			<td>
+				                          			  <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+									                    <input type="text" placeholder="Contoh: Matematika" class="form-control" name="nama_mapel" required="">
+									                  </div>
+				                          			</td>
+				                          			<td>
+				                          			  <select class="form-control" required="" name="tahun">
+							                            <option value="">Pilih Tahun Akademik</option>
+							                            <option value="1">Ganjil</option>
+							                            <option value="2">Genap</option>
+							                          </select>
+				                          			</td>
+				                          		</tr>
+				                          	</table>
+				                        </div>
+				                        <div class="modal-footer">
+				                          <input type="hidden" name="tingkat" value="1">
+				                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				                          <input type="submit" class="btn btn-primary" value="Tambah">
+				                        </div>
 			                        </form>
 			                      </div>
 			                    </div>

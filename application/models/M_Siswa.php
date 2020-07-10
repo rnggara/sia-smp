@@ -14,6 +14,7 @@ class M_Siswa extends CI_Model
 	}
 
 	function getAll(){
+		$this->db->order_by('nama_siswa', 'asc');
 		return $this->db->get('sia_siswa');
 	}
 

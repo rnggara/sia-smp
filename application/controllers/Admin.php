@@ -17,6 +17,8 @@ class Admin extends CI_Controller
 			$this->load->model('M_Other');
 			$this->load->model('M_Ekskul');
 			$this->load->model('M_Tenkepen');
+			$this->load->helper('login');
+			isAccessible(array('3','4'));
 		}
 	
 	// dashboard

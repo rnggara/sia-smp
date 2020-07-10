@@ -61,3 +61,5 @@ $route['admin/(:num)/tambah-siswa-ekskul/(:num)'] = 'admin/add_siswa_ekskul';
 $route['admin/daftar-ekstrakulikuler'] = 'admin/daftar_ekskul';
 $route['admin/(:num)/ekstrakulikuler'] = 'admin/detail_ekskul/$1';
 $route['admin/wali-kelas'] = 'admin/set_wali_kelas';
+$route['guru/mata-pelajaran'] = "guru/mapel";
+$route['logout'] = 'index/logout';

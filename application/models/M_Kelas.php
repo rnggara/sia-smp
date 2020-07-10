@@ -70,6 +70,21 @@ class M_Kelas extends CI_Model
 		$this->db->where('id_akademik', $id_akademik);
 		$this->db->update('t_wali_kelas', $data);
 	}
+
+	function init_absen($data){
+		$this->db->insert('t_absensi', $data);
+	}
+
+	function get_absen_id($id_kelas){
+		$this->db->where('id_kelas', $id_kelas);
+		$this->db->order_by('tgl_absensi', 'desc');
+		return $this->db->get('t_absensi');
+	}
+
+	function update_absen($id, $data){
+		$this->db->where('id', $id);
+		$this->db->update('t_absensi', $data);
+	}
 }
 
  ?>

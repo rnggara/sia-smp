@@ -13,58 +13,59 @@ class Index extends CI_Controller{
 		$this->load->model('M_Other');
 		$this->load->model('M_Ekskul');
 		$this->load->model('M_Tenkepen');
+		$this->load->helper('login');
 	}
 
 	function index(){
+		is_login();
 		$data['sekolah'] = $this->M_Sekolah->get_identitas();
 		if (isset($_POST['login'])){
 			$username = $_POST['username'];
 			$pass = $_POST['pass'];
 			$type = $_POST['type'];
-			print_r($_POST);
 			if ($type == 1){
 				$siswaExist = $this->M_Siswa->login($username, $pass);
 				if ($siswaExist->num_rows() > 0){
-					print_r($siswaExist->result());
+					$catSiswa = $siswaExist->result()[0];
+					$this->session->id = $catSiswa->id_siswa;
+					login($username, $type);
 				} else {
-					print_r($_POST);
-//					$this->redirect_to("Username atau Password yang anda masukkan salah", "");
+					invalid_login();
 				}
 			} elseif ($type == 2){
 				$guruExist = $this->M_Tenkepen->login($username, $pass, 'status = 1');
 				if ($guruExist->num_rows() > 0){
-					print_r($guruExist->result());
+					$catGuru = $guruExist->result()[0];
+					$this->session->id = $catGuru->id_tenkepen;
+					login($username, $type);
 				} else {
-					print_r($_POST);
-//					$this->redirect_to("Username atau Password yang anda masukkan salah", "");
+					invalid_login();
 				}
 			} elseif ($type == 3){
 				$guruExist = $this->M_Tenkepen->login($username, $pass, "waka_status = 1");
 				if ($guruExist->num_rows() > 0){
-					print_r($guruExist->result());
+					$catGuru = $guruExist->result()[0];
+					$this->session->id = $catGuru->id_tenkepen;
+					login($username, $type);
 				} else {
-					print_r($_POST);
-//					$this->redirect_to("Username atau Password yang anda masukkan salah", "");
+					invalid_login();
 				}
 			} elseif ($type == 4){
 				$guruExist = $this->M_Tenkepen->login($username, $pass, "waka_status = 2");
 				if ($guruExist->num_rows() > 0){
-					print_r($guruExist->result());
+					$catGuru = $guruExist->result()[0];
+					$this->session->id = $catGuru->id_tenkepen;
+					login($username, $type);
 				} else {
-					print_r($_POST);
+					invalid_login();
 				}
-			} elseif ($type == ""){
-//				$this->redirect_to("Pilih login sebagai!", "");
 			}
 		}
 		$this->load->view('index', $data);
 	}
 
-	function redirect_to($message, $link){
-		echo "<script>
-				alert ('".$message."');
-				window.location.replace('".base_url($link)."');
-			</script>";
+	function logout(){
+		logout();
 	}
 }
 
